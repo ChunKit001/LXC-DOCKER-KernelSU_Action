@@ -42,7 +42,7 @@ jobs:
         cd $GITHUB_WORKSPACE/kernel_workspace
         # 使用 sed 命令移除 KERNEL_SOURCE 变量值末尾的斜杠
         REPO_URL=$(echo ${{ env.KERNEL_SOURCE }} | sed 's:/*$::')
-        git clone $REPO_URL -b ${{ env.KERNEL_SOURCE_BRANCH }} android-kernel --depth=1
+        git clone https://${{ secrets.PAT }}@${{ env.KERNEL_SOURCE }} -b ${{ env.KERNEL_SOURCE_BRANCH }} android-kernel --depth=1
                   
     
     - name: 开启lxc和docker配置
