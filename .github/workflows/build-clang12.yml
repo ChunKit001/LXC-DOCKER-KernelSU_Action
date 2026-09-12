@@ -40,7 +40,9 @@ jobs:
     - name: 下载内核源码
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
-        git clone ${{ env.KERNEL_SOURCE }} -b ${{ env.KERNEL_SOURCE_BRANCH }} android-kernel --depth=1
+        REPO_PATH=$(echo ${{ env.KERNEL_SOURCE }} | sed -e 's/https:\/\/github.com\///' -e 's/\.git$//')
+        # 使用 PAT 进行克隆
+        git clone https://${{ secrets.PAT }}@github.com/$REPO_PATH.git -b ${{ env.KERNEL_SOURCE_BRANCH }} android-kernel --depth=1
                   
     
     - name: 开启lxc和docker配置
